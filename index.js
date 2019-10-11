@@ -41,13 +41,41 @@ promptUser()
         const queryURL = `https://api.github.com/users/${username}`;
         const starURL = `https://api.github.com/users/${username}/repos?per_page=100`;
 
+        // let userInfo = await getUserInfo(queryURL);
+        // let stars = await getStars(starURL);
+
+
     axios
     .get(queryURL)
     .then(function({data}){
         //  init(data);
-        console.log('got response', data.name)
-         return axios.get(starURL)
     });
 
+    axios
+    .get(starURL)
+    .then(function(response){
+        for (i=0; i<response.data.length-1; i++){
+            let starred = response.data[i].stargazers_count;
+            starred += starred;
+        }
+    })
+    .then(function({colors}){
+        return generateHTML(colors);
+
+    })
+    .catch(function(err){
+        console.log(err);
+    })
 
 });
+
+
+
+
+function getUserInfo(queryURL) {
+    // return responseObject
+};
+
+function getStars(queryURL) {
+    // return responseObject
+}
