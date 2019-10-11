@@ -15,45 +15,39 @@ function promptUser(){
         type: "list",
         message: "What is your favorite color?",
         choices: ["green", "blue", "pink", "red"],
-        name: "data.colors"
+        name: "colors"
     }]
 )};
 
-function writeToFile(fileName, data) {
- 
+
+function init(data) {
+    let user = data.name;
+    let location = data.location;
+    let gitProf = data.html_url;
+    let userBlog = data.blog;
+    let userBio = data.bio;
+    let pubRepo = data.public_repos;
+    let userFollowers = data.followers;
+    let userFollowing = data.following;
+    // put info in an object
+    // return the object 
 }
 
-function init() {
-}
-init();
+
 
 
 promptUser()
-    .then(function({username}){
+    .then(function({username, colors}){
         const queryURL = `https://api.github.com/users/${username}`;
-    
+        const starURL = `https://api.github.com/users/${username}/repos?per_page=100`;
+
     axios
     .get(queryURL)
-    .then(function(response){
-        let user = response.data.login;
-        let location = response.data.location;
-        let gitProf = response.data.html_url;
-        let userBlog = response.data.blog;
-        let userBio = response.data.bio;
-        let pubRepo = response.data.public_repos;
-        let userFollowers = response.data.followers;
-        let userFollowing = response.data.following;
-        let gitStars = response.data.starred_url;
-        console.log(profImg, user, location, gitProf, userBlog, userBio, pubRepo, userFollowers, userFollowing, gitStars)
+    .then(function({data}){
+        //  init(data);
+        console.log('got response', data.name)
+         return axios.get(starURL)
     });
-    })
-    .then(function({data.colors}){
-        return generateHTML(data.color);
-
-    })
-    .catch(function(err){
-        console.log(err);
-    })
 
 
-
+});
