@@ -170,5 +170,37 @@ function generateHTML(data) {
             zoom: .75; 
           } 
          }
-      </style>`
+      </style>
+  </head>
+  <body>
+    <div class="wrapper">
+        <div class="photo-header">
+              <div class="photo-header img card">
+                  <img>
+                  <h1>Hi!</h1>
+                  <h2>My name is Jamie Luong!</h2>
+                  <div class="links-nav"> Currently @ UCLA Full Stack Development Bootcamp </div>
+                  <div class="nav-link"> Location, GitHub Profile, Blog</div>
+              </div>
+          </div>
+      <main>
+          <div class="container">
+              <div class="row">
+                  <div class="col">
+                      <h3>GitHub Bio</h3>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col card">Public Repositories</div>
+                  <div class="col card">Followers</div>
+              </div>
+              <div class="row">
+                  <div class="col card">GitHub Stars</div>
+                  <div class="col card">Following</div>
+              </div>
+          </div>
+      </main>
+    </div>
+  </body>
+</html>`
         }
