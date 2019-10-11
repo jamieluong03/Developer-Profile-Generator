@@ -1,8 +1,9 @@
 const fs = require("fs");
 const axios = require("axios");
 const inquirer = require("inquirer");
-var generateHTML = require("./generateHTML.js")
-
+var {generateHTML} = require("./generateHTML.js");
+console.log(generateHTML);
+// generateHTML()
 
 function promptUser(){
     return inquirer.prompt([
@@ -15,7 +16,7 @@ function promptUser(){
         type: "list",
         message: "What is your favorite color?",
         choices: ["green", "blue", "pink", "red"],
-        name: "colors"
+        name: "color"
     }]
 )};
 
@@ -34,10 +35,8 @@ function init(data) {
 }
 
 
-
-
 promptUser()
-    .then(function({username, colors}){
+    .then(function({username, color}){
         const queryURL = `https://api.github.com/users/${username}`;
         const starURL = `https://api.github.com/users/${username}/repos?per_page=100`;
 
@@ -45,37 +44,40 @@ promptUser()
         // let stars = await getStars(starURL);
 
 
-    axios
-    .get(queryURL)
-    .then(function({data}){
-        //  init(data);
-    });
-
-    axios
-    .get(starURL)
-    .then(function(response){
-        for (i=0; i<response.data.length-1; i++){
-            let starred = response.data[i].stargazers_count;
-            starred += starred;
-        }
-    })
-    .then(function({colors}){
-        return generateHTML(colors);
-
+    axios.get(queryURL)
+    .then(({data}) => {
+        // console.log(data);
+        axios.get(starURL)
+        .then(stars => {
+            // pass stars through a function here 
+            // let totalStarts = return value of function (getTotalValueOfStars(stars))
+            // console.log(stars)
+            return generateHTML({stars, color, data})
+        })
+        .catch(function(err){
+            console.log(err);
+        })
     })
     .catch(function(err){
         console.log(err);
     })
+    
+
+    // .then(function({data}){
+    //     //  init(data);
+    // });
+
+    // axios.get(starURL)
+    // .then(function(response){
+    //     for (i=0; i<response.data.length-1; i++){
+    //         let starred = response.data[i].stargazers_count;
+    //         starred += starred;
+    //     }
+    // })
+    // .then(function({colors}){
+    //     // return generateHTML(colors);
+
+    // })
+
 
 });
-
-
-
-
-function getUserInfo(queryURL) {
-    // return responseObject
-};
-
-function getStars(queryURL) {
-    // return responseObject
-}
