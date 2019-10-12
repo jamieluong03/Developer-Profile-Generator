@@ -180,36 +180,36 @@ function generateHTML(data) {
               <div class="photo-header img card">
                   <img>
                   <h1>Hi!</h1>
-                  <h2>My name is ${user}!</h2>
+                  <h2>My name is ${data.user}!</h2>
                   <div class="links-nav"> Currently @ UCLA Full Stack Development Bootcamp </div>
-                  <div class="nav-link"> ${location}, ${gitProf}, ${userBlog}</div>
+                  <div class="nav-link"> ${data.location}, ${data.gitProf}, ${data.userBlog}</div>
               </div>
           </div>
       <main>
           <div class="container">
               <div class="row">
                   <div class="col">
-                      <h3>${userBio}</h3>
+                      <h3>${data.userBio}</h3>
                   </div>
               </div>
               <div class="row">
                   <div class="col card">
                     <h3>Public Repositories</h3>
-                    <h4>${pubRepo}</h4>
+                    <h4>${data.pubRepo}</h4>
                   </div>
                   <div class="col card">
                     <h3>Followers</h3>
-                    <h4>${userFollowers}</h4>
+                    <h4>${data.userFollowers}</h4>
                   </div>
               </div>
               <div class="row">
                   <div class="col card">
                     <h3>GitHub Stars</h3>
-                    <h4>${starred}</h4>
+                    <h4>${data.starred}</h4>
                   </div>
                   <div class="col card">
                     <h3>FollowingM/h3>
-                    <h4>${userFollowing}</h4>
+                    <h4>${data.userFollowing}</h4>
                   </div>
               </div>
           </div>
