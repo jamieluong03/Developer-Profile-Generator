@@ -1,8 +1,9 @@
 const fs = require("fs");
 const axios = require("axios");
 const inquirer = require("inquirer");
-var generateHTML = require("./generateHTML.js")
-
+var {generateHTML} = require("./generateHTML.js");
+console.log(generateHTML);
+// generateHTML()
 
 function promptUser(){
     return inquirer.prompt([
@@ -15,45 +16,68 @@ function promptUser(){
         type: "list",
         message: "What is your favorite color?",
         choices: ["green", "blue", "pink", "red"],
-        name: "data.colors"
+        name: "color"
     }]
 )};
 
-function writeToFile(fileName, data) {
- 
-}
 
-function init() {
+function init(data) {
+    let user = data.name;
+    let location = data.location;
+    let gitProf = data.html_url;
+    let userBlog = data.blog;
+    let userBio = data.bio;
+    let pubRepo = data.public_repos;
+    let userFollowers = data.followers;
+    let userFollowing = data.following;
+    // put info in an object
+    // return the object 
 }
-init();
 
 
 promptUser()
-    .then(function({username}){
+    .then(function({username, color}){
         const queryURL = `https://api.github.com/users/${username}`;
-    
-    axios
-    .get(queryURL)
-    .then(function(response){
-        let user = response.data.login;
-        let location = response.data.location;
-        let gitProf = response.data.html_url;
-        let userBlog = response.data.blog;
-        let userBio = response.data.bio;
-        let pubRepo = response.data.public_repos;
-        let userFollowers = response.data.followers;
-        let userFollowing = response.data.following;
-        let gitStars = response.data.starred_url;
-        console.log(profImg, user, location, gitProf, userBlog, userBio, pubRepo, userFollowers, userFollowing, gitStars)
-    });
-    })
-    .then(function({data.colors}){
-        return generateHTML(data.color);
+        const starURL = `https://api.github.com/users/${username}/repos?per_page=100`;
 
+        // let userInfo = await getUserInfo(queryURL);
+        // let stars = await getStars(starURL);
+
+
+    axios.get(queryURL)
+    .then(({data}) => {
+        // console.log(data);
+        axios.get(starURL)
+        .then(stars => {
+            // pass stars through a function here 
+            // let totalStarts = return value of function (getTotalValueOfStars(stars))
+            // console.log(stars)
+            return generateHTML({stars, color, data})
+        })
+        .catch(function(err){
+            console.log(err);
+        })
     })
     .catch(function(err){
         console.log(err);
     })
+    
+
+    // .then(function({data}){
+    //     //  init(data);
+    // });
+
+    // axios.get(starURL)
+    // .then(function(response){
+    //     for (i=0; i<response.data.length-1; i++){
+    //         let starred = response.data[i].stargazers_count;
+    //         starred += starred;
+    //     }
+    // })
+    // .then(function({colors}){
+    //     // return generateHTML(colors);
+
+    // })
 
 
-
+});
