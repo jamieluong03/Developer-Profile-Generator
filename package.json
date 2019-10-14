@@ -1,0 +1,28 @@
+{
+  "name": "Developer-Profile-Generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "electron": "^6.0.12",
+    "electron-html-to": "^2.6.0",
+    "inquire": "^0.4.8",
+    "inquirer": "^7.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamieluong03/Developer-Profile-Generator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamieluong03/Developer-Profile-Generator/issues"
+  },
+  "homepage": "https://github.com/jamieluong03/Developer-Profile-Generator#readme"
+}
