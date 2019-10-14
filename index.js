@@ -31,7 +31,27 @@ function init(data) {
     let userFollowers = data.followers;
     let userFollowing = data.following;
     // put info in an object
+    let data = {
+        user,
+        location,
+        gitProf, 
+        userBlog,
+        userBio,
+        pubRepo,
+        userFollowers,
+        userFollowing
+    };
+
     // return the object 
+    return data;
+}
+
+function getTotalStars(stars){
+    for (i=0; i<stars.length-1; i++){
+     let starred = stars.data[i].stargazers_count;
+     starred += starred;
+    }
+    return starred
 }
 
 
@@ -43,17 +63,19 @@ promptUser()
         // let userInfo = await getUserInfo(queryURL);
         // let stars = await getStars(starURL);
 
-
     axios.get(queryURL)
     .then(({data}) => {
-        // console.log(data);
+        console.log(data);
         axios.get(starURL)
-        .then(stars => {
+        .then({stars} => {
             // pass stars through a function here 
+            return getTotalStars(stars);
+
+            
             // let totalStarts = return value of function (getTotalValueOfStars(stars))
             // console.log(stars)
             return generateHTML({stars, color, data})
-        })
+        
         .catch(function(err){
             console.log(err);
         })
@@ -61,23 +83,5 @@ promptUser()
     .catch(function(err){
         console.log(err);
     })
-    
-
-    // .then(function({data}){
-    //     //  init(data);
-    // });
-
-    // axios.get(starURL)
-    // .then(function(response){
-    //     for (i=0; i<response.data.length-1; i++){
-    //         let starred = response.data[i].stargazers_count;
-    //         starred += starred;
-    //     }
-    // })
-    // .then(function({colors}){
-    //     // return generateHTML(colors);
-
-    // })
-
 
 });
