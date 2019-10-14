@@ -1,7 +1,14 @@
-const fs = require("fs");
+const fs = require("fs"),
+convertFactory = require('electron-html-to');
+ 
+var conversion = convertFactory({
+    converterPath: convertFactory.converters.PDF
+  });
 const axios = require("axios");
 const inquirer = require("inquirer");
 var {generateHTML} = require("./generateHTML.js");
+
+
 console.log(generateHTML);
 // generateHTML()
 
@@ -46,14 +53,6 @@ function init(data) {
     return data;
 }
 
-function getTotalStars(stars){
-    for (i=0; i<stars.length-1; i++){
-     let starred = stars.data[i].stargazers_count;
-     starred += starred;
-    }
-    return starred
-}
-
 
 promptUser()
     .then(function({username, color}){
@@ -67,21 +66,39 @@ promptUser()
     .then(({data}) => {
         console.log(data);
         axios.get(starURL)
-        .then({stars} => {
-            // pass stars through a function here 
-            return getTotalStars(stars);
+        .then(({stars}) => {
+            // pass stars through a function herefunction getTotalStars(stars){
+            for (i=0; i<stars.length-1; i++){
+                let starred = stars.data[i].stargazers_count;
+                starred += starred;
+                console.log(starred);
+            };
+            return starred;
+        });
 
+            init(data);
             
-            // let totalStarts = return value of function (getTotalValueOfStars(stars))
+            // let totalStarss = return value of function (getTotalValueOfStars(stars))
             // console.log(stars)
-            return generateHTML({stars, color, data})
+            return generateHTML({starred, color, data})
         
         .catch(function(err){
             console.log(err);
-        })
+        });
     })
     .catch(function(err){
         console.log(err);
     })
 
+});
+
+
+ 
+conversion({ html: generateHTML }, function(err, result) {
+  if (err) {
+    return console.error(err);
+  }
+ 
+  result.stream.pipe(fs.createWriteStream('profile.pdf'));
+  conversion.kill(); // necessary if you use the electron-server strategy, see bellow for details
 });
